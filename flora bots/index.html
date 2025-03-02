@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UUID Registration and Ban</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .container { max-width: 400px; margin: auto; }
+        input, button { display: block; width: 100%; margin: 10px 0; padding: 10px; }
+        .message { color: red; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Registration Form -->
+        <h2>Register</h2>
+        <form id="registerForm">
+            <input type="text" id="uuid" placeholder="Enter UUID" required>
+            <input type="text" id="username" placeholder="Enter Username" required>
+            <input type="password" id="password" placeholder="Enter Password" required>
+            <button type="submit">Register</button>
+        </form>
+        <p id="registerMessage" class="message"></p>
+
+        <!-- Admin Panel -->
+        <h2>Admin Panel</h2>
+        <form id="banForm">
+            <input type="text" id="banUUID" placeholder="Enter UUID to Ban" required>
+            <button type="submit">Ban UUID</button>
+        </form>
+        <p id="banMessage" class="message"></p>
+    </div>
+
+    <script>
+        // Register Form Submission
+        document.getElementById('registerForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const uuid = document.getElementById('uuid').value;
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            const response = await fetch('/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ uuid, username, password })
+            });
+
+            const result = await response.json();
+            document.getElementById('registerMessage').textContent = result.message;
+        });
+
+        // Ban Form Submission
+        document.getElementById('banForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const uuid = document.getElementById('banUUID').value;
+
+            const response = await fetch('/ban', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ uuid })
+            });
+
+            const result = await response.json();
+            document.getElementById('banMessage').textContent = result.message;
+        });
+    </script>
+</body>
+</html>
