@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const sqlite3 = require('sqlite3').verbose();
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000; // Use Vercel's provided port
 
 app.use(bodyParser.json());
 
@@ -81,9 +81,10 @@ app.get('/check-ban', (req, res) => {
     });
 });
 
-// Serve the HTML file
-app.use(express.static('public'));
-
+// Start the server
 app.listen(port, () => {
-    console.log(`Server running at http://localhost:${port}`);
+    console.log(`Server running on port ${port}`);
 });
+
+// Export the app for Vercel
+module.exports = app;
