@@ -13,7 +13,7 @@
 </head>
 <body>
     <div class="container">
-        <!-- Registration Form -->
+        
         <h2>Register</h2>
         <form id="registerForm">
             <input type="text" id="uuid" placeholder="Enter UUID" required>
@@ -23,7 +23,7 @@
         </form>
         <p id="registerMessage" class="message"></p>
 
-        <!-- Admin Panel -->
+        
         <h2>Admin Panel</h2>
         <form id="banForm">
             <input type="text" id="banUUID" placeholder="Enter UUID to Ban" required>
@@ -33,7 +33,7 @@
     </div>
 
     <script>
-        // Register Form Submission
+
         document.getElementById('registerForm').addEventListener('submit', async function (e) {
             e.preventDefault();
             const uuid = document.getElementById('uuid').value;
@@ -50,7 +50,6 @@
             document.getElementById('registerMessage').textContent = result.message;
         });
 
-        // Ban Form Submission
         document.getElementById('banForm').addEventListener('submit', async function (e) {
             e.preventDefault();
             const uuid = document.getElementById('banUUID').value;
